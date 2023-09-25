@@ -1,14 +1,22 @@
 name: frontend_flutter
 description: A new Flutter project.
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
-  sdk: '>=3.1.2 <4.0.0'
+  sdk: ">=3.1.2 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
+  flutter_screenutil: ^5.8.2
+  provider: ^6.0.5
+  carousel_slider: ^4.2.1
+  google_fonts: ^4.0.4
+  shared_preferences: ^2.2.1
+  email_validator: ^2.1.17
+  dio: ^5.1.1
+  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:
@@ -17,3 +25,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/icons/
+    - assets/images/
