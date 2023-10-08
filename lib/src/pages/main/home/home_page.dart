@@ -1,8 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_flutter/components/item_pet_care.dart';
+import 'package:frontend_flutter/src/model/register_model.dart';
+import 'package:frontend_flutter/src/pages/main/chat/chat_detail_page.dart';
+import 'package:frontend_flutter/src/utils/token_manager.dart';
+import 'package:frontend_flutter/src/view_models/chat_provider.dart';
+import 'package:frontend_flutter/src/view_models/home_provider.dart';
+import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  String _name = "";
+  String _status = "off";
+
+  @override
+  void initState() {
+    super.initState();
+    getName();
+    getStatus();
+    Future.microtask(() {
+      Provider.of<HomeProvider>(context, listen: false).getUsers();
+    });
+  }
+
+  void getStatus() async {
+    String status = await SharedPrefManager.getString(
+            SharedPrefManager.statusAnimalCareKey) ??
+        "";
+    setState(() {
+      _status = status;
+    });
+  }
+
+  void getName() async {
+    String name =
+        await SharedPrefManager.getString(SharedPrefManager.fullNameKey) ?? "";
+    setState(() {
+      _name = name;
+    });
+  }
 
   Widget header() {
     return Container(
@@ -30,36 +71,36 @@ class HomePage extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 14),
-          const Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Nassya Putri Riyani',
-                  style: TextStyle(
+                  _name,
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                     fontSize: 18,
                   ),
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Text.rich(
                   TextSpan(
                     children: <TextSpan>[
-                      TextSpan(text: 'You '),
+                      const TextSpan(text: 'You '),
                       TextSpan(
-                        text: 'turned on ',
-                        style: TextStyle(
+                        text: _status == "off" ? 'turned off ' : 'turned on ',
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      TextSpan(
+                      const TextSpan(
                         text: 'your availability to take care others pet ',
                       )
                     ],
                   ),
                   softWrap: true,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                   ),
                 ),
@@ -71,14 +112,14 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget animalCareList() {
+  Widget animalCareList(List<UserModel> users) {
     return Container(
       margin: const EdgeInsets.only(top: 14, left: 14, right: 14),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'Pet Lovers Who Needs Animal Care',
+            'Pick You Animal Care',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20,
@@ -91,13 +132,21 @@ class HomePage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 14),
             mainAxisSpacing: 20,
             crossAxisSpacing: 20,
-            children: const [
-              ItemPetCare(),
-              ItemPetCare(),
-              ItemPetCare(),
-              ItemPetCare(),
-              ItemPetCare(),
-            ],
+            children: users.map((user) {
+              return ItemPetCare(
+                name: user.fullName ?? "",
+                onChatClicked: () {
+                  Provider.of<ChatProvider>(context, listen: false)
+                      .setUser(user);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ChatDetailScreen(),
+                    ),
+                  );
+                },
+              );
+            }).toList(),
           )
         ],
       ),
@@ -106,14 +155,18 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          header(),
-          animalCareList(),
-        ],
-      ),
+    return Consumer<HomeProvider>(
+      builder: (context, value, child) {
+        return SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              header(),
+              animalCareList(value.users),
+            ],
+          ),
+        );
+      },
     );
   }
 }

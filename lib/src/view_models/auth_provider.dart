@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend_flutter/src/api/authentication_api.dart';
 import 'package:frontend_flutter/src/model/register_model.dart';
+import 'package:frontend_flutter/src/utils/token_manager.dart';
 
 enum LoginStatus { empty, loading, success, error }
 
@@ -59,12 +60,10 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> register(User user) async {
+  Future<void> register(UserModel user) async {
     notifyListeners();
     try {
       final result = await AuthenticationApi().registerUser(user);
-      debugPrint('result: $result');
-      print("Result $result");
       notifyListeners();
     } catch (e) {
       notifyListeners();
@@ -76,8 +75,30 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
     try {
       final result = await AuthenticationApi().login(email, password);
-
-      debugPrint('result: $result');
+      SharedPrefManager.saveString(
+        SharedPrefManager.tokenKey,
+        result.token?.toString() ?? "",
+      );
+      SharedPrefManager.saveString(
+        SharedPrefManager.idKey,
+        result.user?.id.toString() ?? "",
+      );
+      SharedPrefManager.saveString(
+        SharedPrefManager.fullNameKey,
+        result.user?.fullName.toString() ?? "",
+      );
+      SharedPrefManager.saveString(
+        SharedPrefManager.emailKey,
+        result.user?.email.toString() ?? "",
+      );
+      SharedPrefManager.saveString(
+        SharedPrefManager.phoneNumberKey,
+        result.user?.phoneNumber.toString() ?? "",
+      );
+      SharedPrefManager.saveString(
+        SharedPrefManager.statusAnimalCareKey,
+        result.user?.statusAnimalCare.toString() ?? "",
+      );
       _loginStatus = LoginStatus.success;
       notifyListeners();
     } on DioException catch (e) {

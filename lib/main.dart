@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:frontend_flutter/src/pages/splash/splash_page.dart';
 import 'package:frontend_flutter/src/view_models/auth_provider.dart';
+import 'package:frontend_flutter/src/view_models/chat_provider.dart';
+import 'package:frontend_flutter/src/view_models/home_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -16,6 +18,8 @@ class MainApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AuthProvider()),
+        ChangeNotifierProvider(create: (context) => HomeProvider()),
+        ChangeNotifierProvider(create: (context) => ChatProvider()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(428, 926),

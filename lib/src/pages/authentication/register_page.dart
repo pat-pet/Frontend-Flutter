@@ -1,12 +1,11 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:frontend_flutter/src/model/register_model.dart';
 import 'package:frontend_flutter/src/pages/authentication/login_page.dart';
 import 'package:frontend_flutter/src/view_models/auth_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
-import '../../model/register_model.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -319,7 +318,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               registerProvider.setPhoneNumber(phone);
                               registerProvider.setPassword(password);
 
-                              User userRegister = User(
+                              UserModel userRegister = UserModel(
                                 fullName: registerProvider.fullName,
                                 email: registerProvider.email,
                                 phoneNumber: registerProvider.phoneNumber,

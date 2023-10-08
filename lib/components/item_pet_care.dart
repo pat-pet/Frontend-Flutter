@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class ItemPetCare extends StatelessWidget {
-  const ItemPetCare({super.key});
+  final String name;
+  final Function onChatClicked;
+
+  const ItemPetCare({
+    super.key,
+    required this.name,
+    required this.onChatClicked,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +32,9 @@ class ItemPetCare extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          const Text(
-            'Putri R',
-            style: TextStyle(
+          Text(
+            name,
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
@@ -38,7 +45,9 @@ class ItemPetCare extends StatelessWidget {
             children: [
               Expanded(
                 child: ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    onChatClicked.call();
+                  },
                   icon: const Icon(Icons.chat_bubble_outline),
                   label: const Text('Chat'),
                   style: ElevatedButton.styleFrom(

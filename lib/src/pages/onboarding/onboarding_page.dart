@@ -50,13 +50,14 @@ class _OnboardingPageState extends State<OnboardingPage> {
       padding: EdgeInsets.only(bottom: 50.sp),
       child: Stack(children: [
         PageView.builder(
-            scrollDirection: Axis.horizontal,
-            controller: _pageController,
-            onPageChanged: _onChanged,
-            itemCount: _pages.length,
-            itemBuilder: ((context, int index) {
-              return _pages[index];
-            })),
+          scrollDirection: Axis.horizontal,
+          controller: _pageController,
+          onPageChanged: _onChanged,
+          itemCount: _pages.length,
+          itemBuilder: ((context, int index) {
+            return _pages[index];
+          }),
+        ),
         Column(mainAxisAlignment: MainAxisAlignment.end, children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -132,7 +133,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 border: Border.all(color: const Color(0xEE3282B8))),
             child: ElevatedButton(
               style: const ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(Colors.white)),
+                backgroundColor: MaterialStatePropertyAll(Colors.white),
+              ),
               onPressed: () async {
                 if (_currentPage == _pages.length - 1) {
                   Navigator.pushReplacement(
