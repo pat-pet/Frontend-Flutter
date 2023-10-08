@@ -1,10 +1,10 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:frontend_flutter/features_onboard/view/mainpage.dart';
+import 'package:frontend_flutter/features_onboard/view/register.dart';
+import 'package:frontend_flutter/features_onboard/view_model/auth_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pat_pat/features_onboard/view/mainpage.dart';
-import 'package:pat_pat/features_onboard/view/register.dart';
-import 'package:pat_pat/features_onboard/view_model/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../utils/token_manager.dart';
@@ -19,7 +19,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -113,9 +112,7 @@ class _LoginPageState extends State<LoginPage> {
                           fontWeight: FontWeight.w700,
                           color: const Color(0xEE222831)),
                     ),
-                    SizedBox(
-                      height: 8.h,
-                    ),
+                    SizedBox(height: 8.h),
                     SizedBox(
                       width: double.infinity,
                       child: TextFormField(
@@ -167,15 +164,15 @@ class _LoginPageState extends State<LoginPage> {
                         width: double.infinity,
                         height: 40.h,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4.r)),
+                          borderRadius: BorderRadius.circular(4.r),
+                        ),
                         child: ElevatedButton(
                           style: const ButtonStyle(
-                            backgroundColor:
-                                MaterialStatePropertyAll(Color(0xEE3282B8)),
+                            backgroundColor: MaterialStatePropertyAll(
+                              Color(0xEE3282B8),
+                            ),
                           ),
                           onPressed: () async {
-                            print('onTap');
-
                             if (_formKey.currentState!.validate()) {
                               String email = _emailController.text;
                               String password = _passwordController.text;
@@ -193,7 +190,6 @@ class _LoginPageState extends State<LoginPage> {
                                   LoginStatus.success) {
                                 LoginManager.saveLogin(true);
 
-                                print('login success');
                                 if (context.mounted) {
                                   Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(
@@ -243,19 +239,23 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         TextButton(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const RegisterPage()));
-                            },
-                            child: Text('Sign Up',
-                                style: GoogleFonts.inter(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w700,
-                                  color: const Color(0xEE3282B8),
-                                )))
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const RegisterPage(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            'Sign Up',
+                            style: GoogleFonts.inter(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w700,
+                              color: const Color(0xEE3282B8),
+                            ),
+                          ),
+                        ),
                       ],
                     )
                   ],

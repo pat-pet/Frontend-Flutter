@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:pat_pat/features_onboard/api/register_api.dart';
-import 'package:pat_pat/features_onboard/model/register_model.dart';
+import 'package:frontend_flutter/features_onboard/api/register_api.dart';
+import 'package:frontend_flutter/features_onboard/model/register_model.dart';
 
 enum LoginStatus { empty, loading, success, error }
 
@@ -67,7 +67,6 @@ class AuthProvider extends ChangeNotifier {
       debugPrint('result: $result');
       notifyListeners();
     } catch (e) {
-      print('Error : $e');
       notifyListeners();
     }
   }
@@ -81,8 +80,7 @@ class AuthProvider extends ChangeNotifier {
       debugPrint('result: $result');
       _loginStatus = LoginStatus.success;
       notifyListeners();
-    } on DioError catch (e) {
-      print('Error : $e');
+    } on DioException catch (e) {
       if (e.response != null && e.response!.statusCode == 400) {
         final errorMessage = e.response!.data[
             'errors']; // Assuming the response body contains a 'message' field

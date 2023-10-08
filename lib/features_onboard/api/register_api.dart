@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:pat_pat/features_onboard/model/register_model.dart';
+import 'package:frontend_flutter/features_onboard/model/register_model.dart';
 
 import '../utils/token_manager.dart';
 
@@ -12,9 +12,7 @@ class ApiUser {
 
   Future<User> registerUser(User user) async {
     final response = await Dio().post(urlRegister, data: user.toJson());
-    print('response: $response');
     if (response.statusCode == 201) {
-      print('response2: ${response.data}');
       return User.fromJson(response.data);
     } else {
       throw Exception('Failed to load data');
@@ -31,8 +29,6 @@ class ApiUser {
     );
 
     if (response.statusCode == 200) {
-      print('response: ${response.data}');
-
       final token = response.data['token'];
       TokenManager.saveToken(token);
 
@@ -40,13 +36,9 @@ class ApiUser {
     } else if (response.statusCode == 400) {
       error = response.statusMessage.toString();
 
-      print('error: $error');
-
       return User.fromJson(response.data);
     } else if (response.statusCode == 404) {
       error = response.statusMessage.toString();
-
-      print('error: $error');
 
       return User.fromJson(response.data);
     } else {

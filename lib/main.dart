@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pat_pat/features_onboard/view/splash.dart';
-import 'package:pat_pat/features_onboard/view_model/auth_provider.dart';
+import 'package:frontend_flutter/features_onboard/view/splash.dart';
+import 'package:frontend_flutter/features_onboard/view_model/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -14,7 +14,9 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (context) => AuthProvider())],
+      providers: [
+        ChangeNotifierProvider(create: (context) => AuthProvider()),
+      ],
       child: ScreenUtilInit(
         designSize: const Size(428, 926),
         builder: (context, child) => MaterialApp(

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:frontend_flutter/features_onboard/view/login.dart';
+import 'package:frontend_flutter/features_onboard/view/register.dart';
+import 'package:frontend_flutter/features_onboard/view/slide_page.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pat_pat/features_onboard/view/login.dart';
-import 'package:pat_pat/features_onboard/view/register.dart';
-import 'package:pat_pat/features_onboard/view/slide_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OnboardPage extends StatefulWidget {
@@ -59,8 +59,10 @@ class _OnboardPageState extends State<OnboardPage> {
         Column(mainAxisAlignment: MainAxisAlignment.end, children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(_pages.length, (int index) {
-              return AnimatedContainer(
+            children: List.generate(
+              _pages.length,
+              (int index) {
+                return AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
                   height: (index == _currentPage) ? 7.h : 7.h,
                   width: (index == _currentPage) ? 30.w : 7.w,
@@ -69,8 +71,10 @@ class _OnboardPageState extends State<OnboardPage> {
                     color: (index == _currentPage)
                         ? const Color(0xEE3282B8)
                         : const Color(0xEE3282B8).withOpacity(0.5),
-                  ));
-            }),
+                  ),
+                );
+              },
+            ),
           ),
           SizedBox(
             height: 60.h,
@@ -92,7 +96,8 @@ class _OnboardPageState extends State<OnboardPage> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const RegisterPage()),
+                        builder: (context) => const RegisterPage(),
+                      ),
                     );
                     final SharedPreferences prefs =
                         await SharedPreferences.getInstance();
@@ -125,32 +130,34 @@ class _OnboardPageState extends State<OnboardPage> {
                 borderRadius: BorderRadius.circular(4.r),
                 border: Border.all(color: const Color(0xEE3282B8))),
             child: ElevatedButton(
-                style: const ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(Colors.white)),
-                onPressed: () async {
-                  if (_currentPage == _pages.length - 1) {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LoginPage()));
-                    final SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    await prefs.setBool('isOnboardingComplete', true);
-                  } else {
-                    _pageController.nextPage(
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeInOutQuint);
-                  }
-                },
-                child: Text(
-                  (_currentPage == _pages.length - 1)
-                      ? 'Sign In'
-                      : 'Berikutnya',
-                  style: GoogleFonts.openSans(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
-                      color: const Color(0xEE3282B8)),
-                )),
+              style: const ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(Colors.white)),
+              onPressed: () async {
+                if (_currentPage == _pages.length - 1) {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginPage(),
+                    ),
+                  );
+                  final SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  await prefs.setBool('isOnboardingComplete', true);
+                } else {
+                  _pageController.nextPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOutQuint);
+                }
+              },
+              child: Text(
+                (_currentPage == _pages.length - 1) ? 'Sign In' : 'Berikutnya',
+                style: GoogleFonts.openSans(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w600,
+                  color: const Color(0xEE3282B8),
+                ),
+              ),
+            ),
           ),
           SizedBox(
             height: 80.h,
@@ -162,18 +169,19 @@ class _OnboardPageState extends State<OnboardPage> {
             top: 60.sp,
             right: 30.sp,
             child: TextButton(
-                onPressed: () async {
-                  _pageController.jumpToPage(
-                    _pages.length - 1,
-                  );
-                },
-                child: Text(
-                  'Skip',
-                  style: GoogleFonts.inter(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w400,
-                      color: const Color(0xEE144272)),
-                )),
+              onPressed: () async {
+                _pageController.jumpToPage(
+                  _pages.length - 1,
+                );
+              },
+              child: Text(
+                'Skip',
+                style: GoogleFonts.inter(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                    color: const Color(0xEE144272)),
+              ),
+            ),
           ),
         ),
       ]),

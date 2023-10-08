@@ -1,9 +1,9 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:frontend_flutter/features_onboard/view/login.dart';
+import 'package:frontend_flutter/features_onboard/view_model/auth_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pat_pat/features_onboard/view/login.dart';
-import 'package:pat_pat/features_onboard/view_model/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../model/register_model.dart';
@@ -43,9 +43,10 @@ class _RegisterPageState extends State<RegisterPage> {
               Text(
                 "Sign Up",
                 style: GoogleFonts.inter(
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w700,
-                    color: const Color(0xEE222831)),
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w700,
+                  color: const Color(0xEE222831),
+                ),
               ),
               SizedBox(
                 height: 12.h,
@@ -340,10 +341,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                     .showSnackBar(snackBar);
 
                                 Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const LoginPage()));
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const LoginPage(),
+                                  ),
+                                );
                               }
                             }
 
@@ -377,18 +379,21 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                         ),
                         TextButton(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const LoginPage()));
-                            },
-                            child: Text('Sign In',
-                                style: GoogleFonts.inter(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w700,
-                                  color: const Color(0xEE3282B8),
-                                )))
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const LoginPage()));
+                          },
+                          child: Text(
+                            'Sign In',
+                            style: GoogleFonts.inter(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w700,
+                              color: const Color(0xEE3282B8),
+                            ),
+                          ),
+                        )
                       ],
                     )
                   ],

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:frontend_flutter/features_onboard/view/mainpage.dart';
+import 'package:frontend_flutter/features_onboard/view/onboard_page.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pat_pat/features_onboard/view/login.dart';
-import 'package:pat_pat/features_onboard/view/mainpage.dart';
-import 'package:pat_pat/features_onboard/view/onboard_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -27,13 +26,13 @@ class _SplashScreenState extends State<SplashScreen> {
     final bool isLogin = prefs.getBool('isLogin') ?? false;
 
     if (context.mounted) {
-      print('isLogin: $isLogin');
       Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>
-                isLogin ? const MyWidget() : const OnboardPage(),
-          ));
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              isLogin ? const MyWidget() : const OnboardPage(),
+        ),
+      );
     }
   }
 
@@ -41,11 +40,14 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text('PatPet',
-            style: GoogleFonts.inter(
-                fontSize: 30.sp,
-                fontWeight: FontWeight.w700,
-                color: Colors.black)),
+        child: Text(
+          'PatPet',
+          style: GoogleFonts.inter(
+            fontSize: 30.sp,
+            fontWeight: FontWeight.w700,
+            color: Colors.black,
+          ),
+        ),
       ),
     );
   }
