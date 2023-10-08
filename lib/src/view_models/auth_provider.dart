@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend_flutter/features_onboard/api/register_api.dart';
-import 'package:frontend_flutter/features_onboard/model/register_model.dart';
+import 'package:frontend_flutter/src/api/authentication_api.dart';
+import 'package:frontend_flutter/src/model/register_model.dart';
 
 enum LoginStatus { empty, loading, success, error }
 
@@ -16,7 +16,7 @@ class AuthProvider extends ChangeNotifier {
   String _message = '';
   String get message => _message;
 
-  String _error = '';
+  final String _error = '';
   String get error => _error;
 
   String _fullName = '';
@@ -62,9 +62,9 @@ class AuthProvider extends ChangeNotifier {
   Future<void> register(User user) async {
     notifyListeners();
     try {
-      final result = await ApiUser().registerUser(user);
-
+      final result = await AuthenticationApi().registerUser(user);
       debugPrint('result: $result');
+      print("Result $result");
       notifyListeners();
     } catch (e) {
       notifyListeners();
@@ -75,7 +75,7 @@ class AuthProvider extends ChangeNotifier {
     _loginStatus = LoginStatus.loading;
     notifyListeners();
     try {
-      final result = await ApiUser().login(email, password);
+      final result = await AuthenticationApi().login(email, password);
 
       debugPrint('result: $result');
       _loginStatus = LoginStatus.success;

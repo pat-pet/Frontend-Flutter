@@ -1,13 +1,13 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:frontend_flutter/features_onboard/view/mainpage.dart';
-import 'package:frontend_flutter/features_onboard/view/register.dart';
-import 'package:frontend_flutter/features_onboard/view_model/auth_provider.dart';
+import 'package:frontend_flutter/src/pages/authentication/register_page.dart';
+import 'package:frontend_flutter/src/pages/main/main_page.dart';
+import 'package:frontend_flutter/src/view_models/auth_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import '../utils/token_manager.dart';
+import '../../utils/token_manager.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -23,7 +23,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -35,7 +34,11 @@ class _LoginPageState extends State<LoginPage> {
       builder: (context, loginProvider, child) => Scaffold(
         body: Container(
           padding: EdgeInsets.only(
-              left: 28.sp, right: 28.sp, top: 60.sp, bottom: 20.sp),
+            left: 28.sp,
+            right: 28.sp,
+            top: 60.sp,
+            bottom: 20.sp,
+          ),
           child: ListView(
             children: [
               Text(
@@ -45,19 +48,16 @@ class _LoginPageState extends State<LoginPage> {
                     fontWeight: FontWeight.w700,
                     color: const Color(0xEE222831)),
               ),
-              SizedBox(
-                height: 12.h,
-              ),
+              SizedBox(height: 12.h),
               Text(
                 'Fill the blank input below here to sign up.',
                 style: GoogleFonts.inter(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w400,
-                    color: const Color(0xEE727C8D)),
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w400,
+                  color: const Color(0xEE727C8D),
+                ),
               ),
-              SizedBox(
-                height: 40.h,
-              ),
+              SizedBox(height: 40.h),
               Form(
                 key: _formKey,
                 child: Column(
@@ -102,15 +102,14 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 30.h,
-                    ),
+                    SizedBox(height: 30.h),
                     Text(
                       'Password',
                       style: GoogleFonts.inter(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w700,
-                          color: const Color(0xEE222831)),
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w700,
+                        color: const Color(0xEE222831),
+                      ),
                     ),
                     SizedBox(height: 8.h),
                     SizedBox(
@@ -156,9 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 30.h,
-                    ),
+                    SizedBox(height: 30.h),
                     Center(
                       child: Container(
                         width: double.infinity,
@@ -193,7 +190,7 @@ class _LoginPageState extends State<LoginPage> {
                                 if (context.mounted) {
                                   Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(
-                                      builder: (context) => const MyWidget(),
+                                      builder: (context) => const MainPage(),
                                     ),
                                     (route) => false,
                                   );
@@ -209,9 +206,6 @@ class _LoginPageState extends State<LoginPage> {
                                 }
                               }
                             }
-                            // final SharedPreferences prefs =
-                            //     await SharedPreferences.getInstance();
-                            // await prefs.setBool('isOnboardingComplete', true);
                           },
                           child: Text(
                             'Sign In',
@@ -224,9 +218,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 60.h,
-                    ),
+                    SizedBox(height: 60.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

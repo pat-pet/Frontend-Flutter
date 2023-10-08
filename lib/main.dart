@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:frontend_flutter/features_onboard/view/splash.dart';
-import 'package:frontend_flutter/features_onboard/view_model/auth_provider.dart';
+import 'package:frontend_flutter/src/pages/splash/splash_page.dart';
+import 'package:frontend_flutter/src/view_models/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -22,10 +22,8 @@ class MainApp extends StatelessWidget {
         builder: (context, child) => MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'PatPet',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-          home: const SplashScreen(),
+          theme: ThemeData(primarySwatch: Colors.blue),
+          home: const SplashPage(),
         ),
       ),
     );

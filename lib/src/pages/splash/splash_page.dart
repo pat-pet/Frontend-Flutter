@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:frontend_flutter/features_onboard/view/mainpage.dart';
-import 'package:frontend_flutter/features_onboard/view/onboard_page.dart';
+import 'package:frontend_flutter/src/pages/main/main_page.dart';
+import 'package:frontend_flutter/src/pages/onboarding/onboarding_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+class SplashPage extends StatefulWidget {
+  const SplashPage({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  State<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     navigateToPage();
   }
@@ -30,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
         context,
         MaterialPageRoute(
           builder: (context) =>
-              isLogin ? const MyWidget() : const OnboardPage(),
+              isLogin ? const MainPage() : const OnboardingPage(),
         ),
       );
     }

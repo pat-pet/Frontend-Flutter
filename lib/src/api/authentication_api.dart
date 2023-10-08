@@ -1,16 +1,17 @@
 import 'package:dio/dio.dart';
-import 'package:frontend_flutter/features_onboard/model/register_model.dart';
+import 'package:frontend_flutter/src/model/register_model.dart';
 
 import '../utils/token_manager.dart';
 
-class ApiUser {
-  final String urlRegister = 'http://192.168.1.4:39390/users/register';
-  final String urlLogin = 'http://192.168.1.4:39390/users/login';
+class AuthenticationApi {
+  final String urlRegister = 'http://192.168.100.19:3000/users/register';
+  final String urlLogin = 'http://192.168.100.19:3000/users/login';
 
   var error = '';
   var message = '';
 
   Future<User> registerUser(User user) async {
+    print("User $user");
     final response = await Dio().post(urlRegister, data: user.toJson());
     if (response.statusCode == 201) {
       return User.fromJson(response.data);

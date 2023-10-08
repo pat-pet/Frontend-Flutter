@@ -1,33 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:frontend_flutter/features_onboard/view/login.dart';
-import 'package:frontend_flutter/features_onboard/view/register.dart';
-import 'package:frontend_flutter/features_onboard/view/slide_page.dart';
+import 'package:frontend_flutter/src/pages/authentication/login_page.dart';
+import 'package:frontend_flutter/src/pages/authentication/register_page.dart';
+import 'package:frontend_flutter/src/pages/onboarding/slide_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class OnboardPage extends StatefulWidget {
-  const OnboardPage({super.key});
+class OnboardingPage extends StatefulWidget {
+  const OnboardingPage({super.key});
 
   @override
-  State<OnboardPage> createState() => _OnboardPageState();
+  State<OnboardingPage> createState() => _OnboardingPageState();
 }
 
-class _OnboardPageState extends State<OnboardPage> {
+class _OnboardingPageState extends State<OnboardingPage> {
   int _currentPage = 0;
   final PageController _pageController = PageController();
 
   final List _pages = [
     const SlidePage(
-        title: "Welcome Pet’s Owner",
-        description:
-            "With a single click, quickly find pet boarding for your beloved companions",
-        image: "assets/images/onboard1.png"),
+      title: "Welcome Pet`s Owner",
+      description:
+          "With a single click, quickly find pet boarding for your beloved companions",
+      image: "assets/images/onboard1.png",
+    ),
     const SlidePage(
-        title: "Right person To Your Pet",
-        description:
-            "Your pets will be treated by animal lovers, just like you",
-        image: "assets/images/onboard2.png"),
+      title: "Right person To Your Pet",
+      description: "Your pets will be treated by animal lovers, just like you",
+      image: "assets/images/onboard2.png",
+    ),
     const SlidePage(
       title: "Easy, Secure & Dependable",
       description:
@@ -170,16 +171,15 @@ class _OnboardPageState extends State<OnboardPage> {
             right: 30.sp,
             child: TextButton(
               onPressed: () async {
-                _pageController.jumpToPage(
-                  _pages.length - 1,
-                );
+                _pageController.jumpToPage(_pages.length - 1);
               },
               child: Text(
                 'Skip',
                 style: GoogleFonts.inter(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w400,
-                    color: const Color(0xEE144272)),
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w400,
+                  color: const Color(0xEE144272),
+                ),
               ),
             ),
           ),

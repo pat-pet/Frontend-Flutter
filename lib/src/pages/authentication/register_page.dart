@@ -1,12 +1,12 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:frontend_flutter/features_onboard/view/login.dart';
-import 'package:frontend_flutter/features_onboard/view_model/auth_provider.dart';
+import 'package:frontend_flutter/src/pages/authentication/login_page.dart';
+import 'package:frontend_flutter/src/view_models/auth_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import '../model/register_model.dart';
+import '../../model/register_model.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -18,7 +18,6 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -37,7 +36,11 @@ class _RegisterPageState extends State<RegisterPage> {
       builder: (context, registerProvider, child) => Scaffold(
         body: Container(
           padding: EdgeInsets.only(
-              left: 28.sp, right: 28.sp, top: 60.sp, bottom: 20.sp),
+            left: 28.sp,
+            right: 28.sp,
+            top: 60.sp,
+            bottom: 20.sp,
+          ),
           child: ListView(
             children: [
               Text(
@@ -54,9 +57,10 @@ class _RegisterPageState extends State<RegisterPage> {
               Text(
                 'Fill the blank input below here to sign up.',
                 style: GoogleFonts.inter(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w400,
-                    color: const Color(0xEE727C8D)),
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w400,
+                  color: const Color(0xEE727C8D),
+                ),
               ),
               SizedBox(
                 height: 40.h,
@@ -69,9 +73,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     Text(
                       'Name',
                       style: GoogleFonts.inter(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w700,
-                          color: const Color(0xEE222831)),
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w700,
+                        color: const Color(0xEE222831),
+                      ),
                     ),
                     SizedBox(
                       height: 8.h,
@@ -100,19 +105,16 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 30.h,
-                    ),
+                    SizedBox(height: 30.h),
                     Text(
                       'Email',
                       style: GoogleFonts.inter(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w700,
-                          color: const Color(0xEE222831)),
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w700,
+                        color: const Color(0xEE222831),
+                      ),
                     ),
-                    SizedBox(
-                      height: 8.h,
-                    ),
+                    SizedBox(height: 8.h),
                     SizedBox(
                       width: double.infinity,
                       child: TextFormField(
@@ -133,9 +135,10 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                           hintText: 'youremail@email.com',
                           hintStyle: GoogleFonts.inter(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xEE727C8D)),
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400,
+                            color: const Color(0xEE727C8D),
+                          ),
                         ),
                       ),
                     ),
@@ -145,9 +148,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     Text(
                       'Phone Number',
                       style: GoogleFonts.inter(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w700,
-                          color: const Color(0xEE222831)),
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w700,
+                        color: const Color(0xEE222831),
+                      ),
                     ),
                     SizedBox(
                       height: 8.h,
@@ -172,25 +176,23 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                           hintText: 'Enter phone number...',
                           hintStyle: GoogleFonts.inter(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xEE727C8D)),
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400,
+                            color: const Color(0xEE727C8D),
+                          ),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 30.h,
-                    ),
+                    SizedBox(height: 30.h),
                     Text(
                       'Password',
                       style: GoogleFonts.inter(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w700,
-                          color: const Color(0xEE222831)),
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w700,
+                        color: const Color(0xEE222831),
+                      ),
                     ),
-                    SizedBox(
-                      height: 8.h,
-                    ),
+                    SizedBox(height: 8.h),
                     SizedBox(
                       width: double.infinity,
                       child: TextFormField(
@@ -207,14 +209,16 @@ class _RegisterPageState extends State<RegisterPage> {
                         obscureText: !_isVisible,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(4.r)),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(4.r),
+                            ),
                           ),
                           hintText: 'Enter password...',
                           hintStyle: GoogleFonts.inter(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xEE727C8D)),
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400,
+                            color: const Color(0xEE727C8D),
+                          ),
                           suffixIcon: IconButton(
                             onPressed: () {
                               setState(() {
@@ -234,19 +238,16 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 30.h,
-                    ),
+                    SizedBox(height: 30.h),
                     Text(
                       'Password Confirmation',
                       style: GoogleFonts.inter(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w700,
-                          color: const Color(0xEE222831)),
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w700,
+                        color: const Color(0xEE222831),
+                      ),
                     ),
-                    SizedBox(
-                      height: 8.h,
-                    ),
+                    SizedBox(height: 8.h),
                     SizedBox(
                       width: double.infinity,
                       child: TextFormField(
@@ -292,19 +293,19 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 30.h,
-                    ),
+                    SizedBox(height: 30.h),
                     Center(
                       child: Container(
                         width: double.infinity,
                         height: 40.h,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4.r)),
+                          borderRadius: BorderRadius.circular(4.r),
+                        ),
                         child: ElevatedButton(
                           style: const ButtonStyle(
-                            backgroundColor:
-                                MaterialStatePropertyAll(Color(0xEE3282B8)),
+                            backgroundColor: MaterialStatePropertyAll(
+                              Color(0xEE3282B8),
+                            ),
                           ),
                           onPressed: () async {
                             String name = _nameController.text;
@@ -317,11 +318,6 @@ class _RegisterPageState extends State<RegisterPage> {
                               registerProvider.setFullName(name);
                               registerProvider.setPhoneNumber(phone);
                               registerProvider.setPassword(password);
-
-                              debugPrint('Email ${registerProvider.email}'
-                                  '\nFull Name ${registerProvider.fullName}'
-                                  '\nPhone Number ${registerProvider.phoneNumber}'
-                                  '\nPassword ${registerProvider.password}');
 
                               User userRegister = User(
                                 fullName: registerProvider.fullName,
@@ -364,9 +360,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 60.h,
-                    ),
+                    SizedBox(height: 60.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -381,9 +375,11 @@ class _RegisterPageState extends State<RegisterPage> {
                         TextButton(
                           onPressed: () {
                             Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const LoginPage()));
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const LoginPage(),
+                              ),
+                            );
                           },
                           child: Text(
                             'Sign In',
