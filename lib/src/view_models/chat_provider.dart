@@ -18,6 +18,9 @@ class ChatProvider extends ChangeNotifier {
   List<MessageResponse> _messages = [];
   List<MessageResponse> get messages => _messages;
 
+  Map<String, List<MessageResponse>> _userMessages = {};
+  Map<String, List<MessageResponse>> get userMessages => _userMessages;
+
   final String _error = '';
   String get error => _error;
 
@@ -43,6 +46,18 @@ class ChatProvider extends ChangeNotifier {
       token ?? '',
     );
 
+    notifyListeners();
+  }
+
+  Future<void> getUserMessages() async {
+    final token = await SharedPrefManager.getString(SharedPrefManager.tokenKey);
+
+    List<MessageResponse> result = await MessageApi().getUserMessage(
+      token ?? "",
+    );
+
+    _userMessages =
+        result.groupBy((message) => message.receiver?.fullName ?? '');
     notifyListeners();
   }
 
@@ -74,4 +89,11 @@ class ChatProvider extends ChangeNotifier {
     ));
     notifyListeners();
   }
+}
+
+extension Iterables<E> on Iterable<E> {
+  Map<K, List<E>> groupBy<K>(K Function(E) keyFunction) => fold(
+      <K, List<E>>{},
+      (Map<K, List<E>> map, E element) =>
+          map..putIfAbsent(keyFunction(element), () => <E>[]).add(element));
 }

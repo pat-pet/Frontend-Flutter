@@ -6,7 +6,12 @@ class MessageResponse {
   UserModel? receiver;
   String? content;
 
-  MessageResponse({this.id, this.sender, this.receiver, this.content});
+  MessageResponse({
+    this.id,
+    this.sender,
+    this.receiver,
+    this.content,
+  });
 
   MessageResponse.fromJson(Map<String, dynamic> json) {
     id = json['id'];

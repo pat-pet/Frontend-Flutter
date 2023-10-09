@@ -31,6 +31,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
       debugPrint('onConnectError: $data');
     });
     _socket.on('receive_message', (data) {
+      print('Received Message $data');
       Future.microtask(() {
         Provider.of<ChatProvider>(context, listen: false).addMessage(
           data['senderId'],

@@ -36,22 +36,20 @@ class MessageApi {
     }
   }
 
-  Future<List<UserModel>> getUserMessage(String token) async {
+  Future<List<MessageResponse>> getUserMessage(String token) async {
     final response = await Dio().get(
       urlMessageSended,
-      options: Options(
-        headers: {'token': token},
-      ),
+      options: Options(headers: {'token': token}),
     );
 
     if (response.statusCode == 200) {
-      List<UserModel> users = response.data['users']
-          .map<UserModel>((user) => UserModel.fromJson(user))
+      List<MessageResponse> messages = response.data['messages']
+          .map<MessageResponse>((message) => MessageResponse.fromJson(message))
           .toList();
 
-      return users;
+      return messages;
     } else {
-      throw Exception('Failed to load data');
+      throw Exception('Failed to load messages');
     }
   }
 
