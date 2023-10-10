@@ -13,34 +13,39 @@ class ChatDetailScreen extends StatefulWidget {
 
 class _ChatDetailScreenState extends State<ChatDetailScreen> {
   final Socket _socket = io(
-    'http://192.168.100.19:3000',
-    OptionBuilder().setTransports(['websocket']).build(),
+    'http://192.168.100.24:3000',
+    OptionBuilder().setTransports(['websocket']).disableAutoConnect().build(),
   );
-  TextEditingController _messageTextController = TextEditingController();
+  final TextEditingController _messageTextController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _socket.onConnect((data) {
+    _socket.connect();
+    _socket.onConnect((_) {
       debugPrint('Connected');
-    });
-    _socket.onDisconnect((data) {
-      debugPrint('onDisconnect: $data');
-    });
-    _socket.onConnectError((data) {
-      debugPrint('onConnectError: $data');
-    });
-    _socket.on('receive_message', (data) {
-      print('Received Message $data');
-      Future.microtask(() {
-        Provider.of<ChatProvider>(context, listen: false).addMessage(
-          data['senderId'],
-          data['senderName'],
-          data['content'],
-        );
+      _socket.on('receive_message', (data) {
+        if (data['receiverId'] ==
+                Provider.of<ChatProvider>(context, listen: false).user?.id ||
+            data['receiverId'].toString() ==
+                Provider.of<ChatProvider>(context, listen: false).senderId) {
+          Future.microtask(() {
+            Provider.of<ChatProvider>(context, listen: false).addMessage(
+              data['senderId'],
+              data['senderName'],
+              data['content'],
+            );
+          });
+        }
+      });
+      _socket.onDisconnect((data) {
+        debugPrint('onDisconnect: $data');
+      });
+      _socket.onConnectError((data) {
+        debugPrint('onConnectError: $data');
       });
     });
-    _socket.connect();
+
     Future.microtask(
       () => {
         Provider.of<ChatProvider>(context, listen: false).getMessages(
@@ -154,6 +159,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                               'content': _messageTextController.text,
                               'senderId': int.parse(value.senderId),
                               'senderName': value.senderName,
+                              'receiverId': value.user?.id
                             });
                             _messageTextController.clear();
                           },

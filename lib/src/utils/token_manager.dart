@@ -49,4 +49,13 @@ class SharedPrefManager {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString(key);
   }
+
+  static Future<void> removeLogin() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove(tokenKey);
+    prefs.remove(idKey);
+    prefs.remove(fullNameKey);
+    prefs.remove(emailKey);
+    prefs.remove(statusAnimalCareKey);
+  }
 }

@@ -51,32 +51,42 @@ class ChatProvider extends ChangeNotifier {
 
   Future<void> getUserMessages() async {
     final token = await SharedPrefManager.getString(SharedPrefManager.tokenKey);
+    final userId = await SharedPrefManager.getString(SharedPrefManager.idKey);
 
     List<MessageResponse> result = await MessageApi().getUserMessage(
       token ?? "",
     );
 
-    _userMessages =
-        result.groupBy((message) => message.receiver?.fullName ?? '');
+    _userMessages = result
+        .where((element) => (element.receiver?.id.toString() ?? '') != userId)
+        .groupBy((message) => message.receiver?.fullName ?? '');
     notifyListeners();
   }
 
   Future<void> getMessages(String receiverId) async {
-    final id = await SharedPrefManager.getString(SharedPrefManager.idKey);
-    final name =
-        await SharedPrefManager.getString(SharedPrefManager.fullNameKey);
-    final token = await SharedPrefManager.getString(SharedPrefManager.tokenKey);
+    try {
+      final id = await SharedPrefManager.getString(SharedPrefManager.idKey);
+      final name =
+          await SharedPrefManager.getString(SharedPrefManager.fullNameKey);
+      final token =
+          await SharedPrefManager.getString(SharedPrefManager.tokenKey);
 
-    List<MessageResponse> result =
-        await MessageApi().getMessageByUserIdReceiverId(
-      int.parse(id ?? "0"),
-      _user?.id ?? 0,
-      token ?? "",
-    );
+      List<MessageResponse> result =
+          await MessageApi().getMessageByUserIdReceiverId(
+        int.parse(id ?? "0"),
+        _user?.id ?? 0,
+        token ?? "",
+      );
 
-    _senderId = id ?? '';
-    _senderName = name ?? '';
-    _messages = result;
+      _senderId = id ?? '';
+      _senderName = name ?? '';
+      _messages = result;
+    } catch (e) {
+      _senderId = '';
+      _senderName = '';
+      _messages = [];
+    }
+
     notifyListeners();
   }
 

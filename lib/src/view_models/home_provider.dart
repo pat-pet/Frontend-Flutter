@@ -22,16 +22,16 @@ class HomeProvider extends ChangeNotifier {
     _homeStatus = HomeStatus.loading;
     notifyListeners();
     try {
-      final String? token =
+      final token =
           await SharedPrefManager.getString(SharedPrefManager.tokenKey);
+      final userId = await SharedPrefManager.getString(SharedPrefManager.idKey);
       final result = await AuthenticationApi().getUsers(token ?? "");
-      print("Result $result");
-      _users = result;
+      _users =
+          result.where((element) => element.id.toString() != userId).toList();
       _homeStatus = HomeStatus.success;
       notifyListeners();
     } catch (e) {
       _message = e.toString();
-      print("Result $e");
       _homeStatus = HomeStatus.error;
       notifyListeners();
     }

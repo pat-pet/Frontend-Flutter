@@ -5,9 +5,9 @@ import 'package:frontend_flutter/src/model/register_model.dart';
 import '../utils/token_manager.dart';
 
 class AuthenticationApi {
-  final String urlRegister = 'http://192.168.100.19:3000/users/register';
-  final String urlLogin = 'http://192.168.100.19:3000/users/login';
-  final String urlUsers = "http://192.168.100.19:3000";
+  final String urlRegister = 'http://192.168.100.24:3000/users/register';
+  final String urlLogin = 'http://192.168.100.24:3000/users/login';
+  final String urlUsers = "http://192.168.100.24:3000";
 
   var error = '';
   var message = '';

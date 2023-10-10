@@ -1,7 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_flutter/src/api/profile_api.dart';
+import 'package:frontend_flutter/src/pages/authentication/login_page.dart';
+import 'package:frontend_flutter/src/utils/token_manager.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  String _name = '';
+  String _email = '';
+  String _statusAnimalCare = '';
+  String _token = '';
+
+  @override
+  void initState() {
+    super.initState();
+    getProfile();
+  }
+
+  void getProfile() async {
+    final name =
+        await SharedPrefManager.getString(SharedPrefManager.fullNameKey) ?? '';
+    final email =
+        await SharedPrefManager.getString(SharedPrefManager.emailKey) ?? '';
+    final statusAnimalCare = await SharedPrefManager.getString(
+            SharedPrefManager.statusAnimalCareKey) ??
+        '';
+    final token =
+        await SharedPrefManager.getString(SharedPrefManager.tokenKey) ?? '';
+    setState(() {
+      _name = name;
+      _email = email;
+      _statusAnimalCare = statusAnimalCare;
+      _token = token;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,19 +59,19 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 14),
-                const Expanded(
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Rehan',
-                        style: TextStyle(
+                        _name,
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
                       ),
-                      SizedBox(height: 4),
-                      Text('rehan@gmail.com'),
+                      const SizedBox(height: 4),
+                      Text(_email),
                     ],
                   ),
                 ),
@@ -73,7 +110,16 @@ class ProfilePage extends StatelessWidget {
             padding: const EdgeInsets.all(32),
             child: Row(
               children: [
-                Switch(value: true, onChanged: (newValue) => {}),
+                Switch(
+                  value: _statusAnimalCare == 'on' ? true : false,
+                  onChanged: (newValue) {
+                    final newStatus = _statusAnimalCare == 'on' ? 'off' : 'on';
+                    setState(() {
+                      _statusAnimalCare = newStatus;
+                    });
+                    ProfileApi().editStatus(newStatus, _token);
+                  },
+                ),
                 const SizedBox(width: 14),
                 const Expanded(
                   child: Column(
@@ -97,31 +143,39 @@ class ProfilePage extends StatelessWidget {
             ),
           ),
           const Divider(),
-          Container(
-            padding: const EdgeInsets.all(32),
-            child: const Row(
-              children: [
-                Icon(
-                  Icons.exit_to_app,
-                  color: Colors.red,
-                ),
-                SizedBox(width: 14),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Log Out',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: Colors.red,
-                        ),
-                      ),
-                    ],
+          GestureDetector(
+            onTap: () async {
+              await LoginManager.removeLogin();
+              await SharedPrefManager.removeLogin();
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => const LoginPage()));
+            },
+            child: Container(
+              padding: const EdgeInsets.all(32),
+              child: const Row(
+                children: [
+                  Icon(
+                    Icons.exit_to_app,
+                    color: Colors.red,
                   ),
-                ),
-              ],
+                  SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Log Out',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

@@ -4,9 +4,9 @@ import 'package:frontend_flutter/src/model/message_response.dart';
 import 'package:frontend_flutter/src/model/register_model.dart';
 
 class MessageApi {
-  final String urlGetMessageById = 'http://192.168.100.19:3000/messages/sent/';
-  final String urlMessage = 'http://192.168.100.19:3000/messages';
-  final String urlMessageSended = 'http://192.168.100.19:3000/messages/sended';
+  final String urlGetMessageById = 'http://192.168.100.24:3000/messages/sent/';
+  final String urlMessage = 'http://192.168.100.24:3000/messages';
+  final String urlMessageSended = 'http://192.168.100.24:3000/messages/sended';
 
   var error = '';
   var message = '';
